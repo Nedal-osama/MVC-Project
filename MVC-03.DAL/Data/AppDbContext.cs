@@ -16,7 +16,7 @@ namespace MVC_03.DAL.Data
         }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
-        //    optionsBuilder.UseSqlServer("Server=.;Database=Mohab26;Trusted_Connection=True;MultipleActionResultSets=True;");
+        //    optionsBuilder.UseSqlServer("Server=.;Database=MVC-5;Trusted_Connection=True;MultipleActionResultSets=True;");
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,5 +25,6 @@ namespace MVC_03.DAL.Data
         }
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

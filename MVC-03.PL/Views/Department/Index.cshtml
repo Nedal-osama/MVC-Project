@@ -1,7 +1,50 @@
-﻿@using MVC_03.DAL.Models
+﻿
 
 @model IEnumerable<Department>
 
 
-<h1>Index</h1>
+<a asp-controller="Department" asp-action="Create" class="btn btn-primary">Create New Department</a>
 
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(D=>D.Code)</th>
+                <th>@Html.DisplayNameFor(D => D.Name)</th>
+                <th>@Html.DisplayNameFor(D=>D.DateOfCreation)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var department in Model)
+            {
+                <tr>
+                    <td>@department.Code</td>
+                    <td>@department.Name</td>
+                    <td>@department.DateOfCreation</td>
+                    <td>
+                        <a asp-action="Detailes" asp-route-id="@department.Id" class="btn btn-warning">
+                            <i class="fa-solid fa-eye"></i>Details
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@department.Id" class="btn btn-success">
+                            <i class="fa-solid fa-edit"></i>Update
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@department.Id" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-5 alert alert-warning">
+        <h3>There No Departments</h3>
+    </div>
+}

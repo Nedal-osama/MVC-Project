@@ -1,0 +1,27 @@
+﻿
+@model Department
+
+<h1>Department Detailes</h1>
+<br />
+<br />
+
+<div>
+    <div>
+        <label class="col-form-label" asp-for="Code"></label>
+        <input type="text" asp-for="Code" class="form-control "readonly />
+       
+    </div>
+    <div>
+        <label class="col-form-label" asp-for="Name"></label>
+        <input type="text" asp-for="Name" class="form-control"readonly />
+        
+    </div>
+    <div>
+        <label class="col-form-label" asp-for="DateOfCreation"></label>
+        <input asp-for="DateOfCreation" class="form-control" readonly />
+    </div>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-5">Edit </a>
+    <a asp-action="Index"  class="btn btn-primary mt-5">Back To List </a>
+</div>
+

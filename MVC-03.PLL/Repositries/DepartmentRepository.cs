@@ -12,7 +12,7 @@ namespace MVC_03.PLL.Repositries
 {
     public class DepartmentRepository : IDepartmentRepository
     {
-     private  readonly AppDbContext dpContext; // NULL
+     private  readonly AppDbContext dpContext; 
         public DepartmentRepository(AppDbContext appDbContext)
         {
             // dpContext = new AppDbContext();
