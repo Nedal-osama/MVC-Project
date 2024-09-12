@@ -1,0 +1,62 @@
+﻿
+
+@model IEnumerable<Employee>
+
+
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Create New Employee</a>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                
+                <th>@Html.DisplayNameFor(D => D.Name)</th>
+                <th>@Html.DisplayNameFor(D => D.Age)</th>
+                <th>@Html.DisplayNameFor(D => D.Address)</th>
+                <th>@Html.DisplayNameFor(D => D.Salary)</th>
+                <th>@Html.DisplayNameFor(D => D.IsActived)</th>
+                <th>@Html.DisplayNameFor(D => D.gender)</th>
+                <th>@Html.DisplayNameFor(D => D.Email)</th>
+           
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var employee in Model)
+            {
+                <tr>
+                 
+                    <td>@employee.Name</td>
+                     <td>@employee.Age</td>
+                    <td>@employee.Address</td>
+                     <td>@employee.Salary</td>
+                    <td>@employee.IsActived</td>
+                    <td>@employee.gender</td>
+                    <td>@employee.Email</td>
+                   
+                    <td>
+                        <a asp-action="Detailes" asp-route-id="@employee.Id" class="btn btn-warning">
+                            <i class="fa-solid fa-eye"></i>Details
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-success">
+                            <i class="fa-solid fa-edit"></i>Update
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-5 alert alert-warning">
+        <h3>There No Employee</h3>
+    </div>
+}

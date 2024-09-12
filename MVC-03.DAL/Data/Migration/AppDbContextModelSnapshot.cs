@@ -4,16 +4,14 @@ using MVC_03.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MVC_03.PL.Migrations
+namespace MVC_03.DAL.Data.Migration
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240909204942_EmployeeModule")]
-    partial class EmployeeModule
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +41,7 @@ namespace MVC_03.PL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Department");
                 });
 
             modelBuilder.Entity("MVC_03.DAL.Models.Employee", b =>
@@ -87,7 +85,7 @@ namespace MVC_03.PL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employee");
                 });
 #pragma warning restore 612, 618
         }

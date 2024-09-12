@@ -8,25 +8,23 @@ using System.Threading.Tasks;
 
 namespace MVC_03.DAL.Models
 {
-    public class Employee
+    public enum Gender
     {
-     public enum Gender
-        {
-            [EnumMember(Value ="Male")]
-            Male=1
+        [EnumMember(Value = "Male")]
+        Male = 1
 
            ,
-            [EnumMember(Value = "Female")]
-            Female =2
-        }
-    public   enum Employeey
-        {
-            FullTime = 1,
-            PartTimetable = 2,  
-        }
-        public int Id { get; set; }
-
-       
+        [EnumMember(Value = "Female")]
+        Female = 2
+    }
+    public enum Employeey
+    {
+        FullTime = 1,
+        PartTimetable = 2,
+    }
+    public class Employee:ModelBase
+    {
+   
         [Range(18,60)]
         public int? Age { get; set; }
         [RegularExpression(@"^[0-9]{1,3}-[a-zA-Z]{5,10}$",ErrorMessage ="Address Must be like 123-streate")]
