@@ -24,7 +24,7 @@ namespace MVC_03.DAL.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
     }
 }

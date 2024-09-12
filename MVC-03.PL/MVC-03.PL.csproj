@@ -19,8 +19,4 @@
     <ProjectReference Include="..\MVC-03.PLL\MVC-03.BLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

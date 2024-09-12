@@ -13,12 +13,12 @@ namespace MVC_03.PL.Controllers
     {
         private readonly IDepartmentRepository departmentRepository;
 
-        public IWebHostEnvironment Env { get; }
+        private readonly IWebHostEnvironment _env;
 
         public DepartmentController(IDepartmentRepository departmentRepository,IWebHostEnvironment env)
         {
             this.departmentRepository= departmentRepository;
-            Env = env;
+            _env = env;
         }
         [HttpGet]
         public IActionResult Index()
@@ -36,7 +36,7 @@ namespace MVC_03.PL.Controllers
         {
             if(ModelState.IsValid)
             {
-           var count=  departmentRepository.Add(department);
+           var count= departmentRepository.Add(department);
                 if(count>0)
                 {
                     return RedirectToAction("Index");
@@ -100,13 +100,13 @@ namespace MVC_03.PL.Controllers
 
               //1-Log Exception
               //2-Freidly Msg
-              if(Env.IsDevelopment()) {
+              if(_env.IsDevelopment()) {
 
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "An Erorr Occured During Update Department");
+                    ModelState.AddModelError(string.Empty, "An Erorr Occured During Update Employee");
                 }
               return View(department);
 
@@ -131,14 +131,14 @@ namespace MVC_03.PL.Controllers
             }
             catch (Exception ex)
             {
-                if (Env.IsDevelopment())
+                if (_env.IsDevelopment())
                 {
 
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "An Erorr Occured During delete Department");
+                    ModelState.AddModelError(string.Empty, "An Erorr Occured During delete Employee");
                 }
                 return View(department);
 

@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MVC_03.PL.Migrations
+namespace MVC_03.DAL.Data.Migration
 {
-    public partial class EmployeeModule : Migration
+    public partial class intialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Departments",
+                name: "Department",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,11 +19,11 @@ namespace MVC_03.PL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.Id);
+                    table.PrimaryKey("PK_Department", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "Employee",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -41,17 +41,17 @@ namespace MVC_03.PL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.PrimaryKey("PK_Employee", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Departments");
+                name: "Department");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Employee");
         }
     }
 }

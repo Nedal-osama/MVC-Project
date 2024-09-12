@@ -31,9 +31,13 @@ namespace MVC_03.PL
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            sqlOptions => sqlOptions.MigrationsAssembly("MVC-03.PL")));
+            sqlOptions => sqlOptions.MigrationsAssembly("MVC-03.DAL")));
 
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+            services.AddScoped<IEmployeeRepository,EmplyeeRepository>();
+
+
         }
 
 

@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace MVC_03.DAL.Models
 {
-    public class Department
+    public class Department:ModelBase
     {
-        public int Id { get; set; }
+        
 
-        [Required(ErrorMessage ="Code Is Required !")]
+        [Required(ErrorMessage = "Code Is Required !")]
         public string Code { get; set; }
 
         [Required(ErrorMessage = "Name Is Required !")]
         public string Name { get; set; }
-        [Display(Name="Date Of Creation")]
+        [Display(Name = "Date Of Creation")]
         public DateTime DateOfCreation { get; set; }
+
+
     }
 }
