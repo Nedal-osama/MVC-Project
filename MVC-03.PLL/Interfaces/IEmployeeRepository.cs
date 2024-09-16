@@ -11,6 +11,7 @@ namespace MVC_03.PLL.Interfaces
     {
         //Employee
         IQueryable<Employee> GetEmployeeByAddress(string address);
+        IQueryable<Employee>GetEmployeesBYName(string name);
 
     }
 }

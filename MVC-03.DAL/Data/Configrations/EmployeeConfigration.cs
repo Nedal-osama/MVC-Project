@@ -15,7 +15,7 @@ namespace MVC_03.DAL.Data.Configrations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.Property(E => E.Salary).IsRequired();
-            builder.Property(E=>E.Salary).HasColumnType("integer");
+            builder.Property(E=>E.Salary).HasColumnType("decimal(18,2)");
             builder.Property(E => E.gender).HasConversion(
                 (gender) => gender.ToString(),
                 (genderAsString)=>(Gender)Enum.Parse(typeof(Gender), genderAsString,true)
