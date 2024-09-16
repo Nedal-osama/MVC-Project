@@ -34,7 +34,15 @@ namespace MVC_03.PLL.Repositries
 
         public IEnumerable<T> GetAll()
         {
-            return dpContext.Set<T>().AsNoTracking().ToList();
+            if (typeof(T) == typeof(Employee))
+            {
+                return (IEnumerable<T>) dpContext.Employees.Include(E => E.Department).AsNoTracking().ToList();
+            }
+             else
+            {
+                return dpContext.Set<T>().AsNoTracking().ToList();  
+            }
+           
 
         }
 

@@ -1,59 +1,11 @@
 ﻿
-@model Employee
+@model EmployeeViewModel
 
 <h1>Department Detailes</h1>
 <br />
 <br />
 
-<div>
-    <div>
-        <label class="col-form-label" asp-for="Name"></label>
-        <input type="text" asp-for="Name" class="form-control" readonly />
-      
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="Age"></label>
-        <input type="text" asp-for="Age" class="form-control" readonly />
-        
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="Address"></label>
-        <input type="text" asp-for="Address" class="form-control" readonly />
-     
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="Salary"></label>
-        <input type="text" asp-for="Salary" class="form-control" readonly />
-
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="IsActived"></label>
-        <input asp-for="IsActived" class="form-control" readonly/>
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="gender"></label>
-        <input asp-for="gender" class="form-control" readonly />
-
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="Email"></label>
-        <input type="email" asp-for="Email" class="form-control"readonly />
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="PhoneNumber"></label>
-        <input type="text" asp-for="PhoneNumber" class="form-control"readonly />
-
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="IsDelete"></label>
-        <input type="text" asp-for="IsDelete" class="form-control"readonly />
-
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="HireDate"></label>
-        <input asp-for="HireDate" class="form-control" readonly/>
-
-    </div>
+<partial name="DetailsDeleteEmployeePartial"></partial>
 
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-5">Edit </a>
     <a asp-action="Index"  class="btn btn-primary mt-5">Back To List </a>
