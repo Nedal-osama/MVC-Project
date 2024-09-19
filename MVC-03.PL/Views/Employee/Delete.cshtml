@@ -2,10 +2,15 @@
 @model EmployeeViewModel
 
 
-<h1>Are You Sure You Want Delete This Emplyee?1</h1>
+<h1>Are You Sure You Want Delete This Emplyee?!</h1>
 
 <form asp-action="Delete" asp-route-id="@Model.Id">
-    <partial name="DetailsDeleteEmployeePartial"></partial>
+    <partial name="PartialViews/DetailsDeleteEmployeePartial"></partial>
+    <input type="hidden" asp-for="ImageName" />
     <input type="submit" value="Delete" class="btn btn-danger mt-5" />
     <a asp-action="Index" class="btn btn-primary mt-5">Cansel </a>
 </form>
+@section ValidateSection
+{
+    <partial name="_validationscriptspartial"></partial>
+}

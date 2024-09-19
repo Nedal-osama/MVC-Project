@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace MVC_03.PL.ViewModels
 {
@@ -13,11 +14,6 @@ namespace MVC_03.PL.ViewModels
         ,
         [EnumMember(Value = "Female")]
         Female = 2
-    }
-    public enum Employeey
-    {
-        FullTime = 1,
-        PartTimetable = 2,
     }
     public class EmployeeViewModel
     {
@@ -49,5 +45,7 @@ namespace MVC_03.PL.ViewModels
             //   [InverseProperty(nameof(Models.Department.Employees))]
             public Department Department { get; set; }
             public int? DepartmentId { get; set; } //FK colomn
-        }
+            public IFormFile Image { get; set; }
+            public string ImageName { get; set; }
+    }
 }

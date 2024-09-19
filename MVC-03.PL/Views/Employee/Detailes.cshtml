@@ -5,9 +5,13 @@
 <br />
 <br />
 
-<partial name="DetailsDeleteEmployeePartial"></partial>
+<partial name="PartialViews/DetailsDeleteEmployeePartial"></partial>
 
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-5">Edit </a>
     <a asp-action="Index"  class="btn btn-primary mt-5">Back To List </a>
 </div>
+@section ValidateSection
+{
+    <partial name="_validationscriptspartial"></partial>
+}
 
