@@ -3,29 +3,30 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using MVC_03.DAL.Models;
+using MVC_03.PL.Helpers;
 using MVC_03.PL.ViewModels;
 using MVC_03.PLL.Interfaces;
-using MVC_03.PLL.Repositries;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MVC_03.PL.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeRepository iEmployeeRepository;
-
+      //  private readonly IEmployeeRepository iEmployeeRepository;
+        private readonly IUniteOfWork uniteOfWork;
         private readonly IWebHostEnvironment Env;
         private readonly IMapper mapper;
-        private readonly IDepartmentRepository departmentRepository;
+        //private readonly IDepartmentRepository departmentRepository;
 
-        public EmployeeController(IEmployeeRepository repository, IWebHostEnvironment env,IMapper mapper/*,IDepartmentRepository departmentRepository*/)
+        public EmployeeController(IUniteOfWork uniteOfWork, IWebHostEnvironment env,IMapper mapper)
         {
-            this.iEmployeeRepository = repository;
-            Env = env;
-            this.mapper = mapper;
-            // this.departmentRepository = departmentRepository;
+          //   this.iEmployeeRepository = iEmployeeRepository;
+              this.uniteOfWork = uniteOfWork;
+              Env = env;
+              this.mapper = mapper;
+          //   this.departmentRepository = departmentRepository;
         }
      //   [HttpGet]
         public IActionResult Index( string SearchIn)
@@ -33,13 +34,13 @@ namespace MVC_03.PL.Controllers
             if (string.IsNullOrEmpty(SearchIn))
             {
 
-                var employee = iEmployeeRepository.GetAll();
+                var employee = uniteOfWork.EmployeeRepository.GetAll();
                var mappedEmp=mapper.Map<IEnumerable< Employee>, IEnumerable<EmployeeViewModel>>(employee);
                 return View(mappedEmp);
             }
             else
             {
-                var employee = iEmployeeRepository.GetEmployeesBYName(SearchIn.ToLower());
+                var employee = uniteOfWork.EmployeeRepository.GetEmployeesBYName(SearchIn.ToLower());
                 var mappedEmp = mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employee);
 
                 return View(mappedEmp);
@@ -51,23 +52,21 @@ namespace MVC_03.PL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-         //   ViewData["Departments"]=departmentRepository.GetAll();
+          //  ViewData["Departments"]=departmentRepository.GetAll();
            //    ViewBag.Departments=departmentRepository.GetAll();
             return View();
         }
         [HttpPost]
-        public IActionResult Create(EmployeeViewModel employeeVm)
+        public async Task<IActionResult> CreateAsync(EmployeeViewModel employeeVm)
         {
-            if (ModelState.IsValid)
-            {
-                var mappedEmp=mapper.Map<EmployeeViewModel,Employee>(employeeVm);
-                var count = iEmployeeRepository.Add(mappedEmp);
+            employeeVm.ImageName = await DocumentSettings.UploadFileAsync(employeeVm.Image, "Images");
+            var mappedEmp = mapper.Map<EmployeeViewModel, Employee>(employeeVm);
+             uniteOfWork.EmployeeRepository.Add(mappedEmp);
+                 var count=  uniteOfWork.complete();
                 if (count > 0)
                 {
                     return RedirectToAction("Index");
                 }
-
-            }
             return View(employeeVm);
         }
         
@@ -79,13 +78,15 @@ namespace MVC_03.PL.Controllers
                 return BadRequest();
 
             }
-            var employee = iEmployeeRepository.GetById(id.Value);
-            ViewBag.Departments = departmentRepository.GetAll(); 
+            var employee = uniteOfWork.EmployeeRepository.GetById(id.Value);
+            var mappedEmp = mapper.Map<Employee, EmployeeViewModel>(employee);
+            //   ViewBag.Departments = departmentRepository.GetAll(); 
             if (employee == null)
             {
                 return NotFound();
             }
-            return View(viewName, employee);
+           
+            return View(viewName, mappedEmp);
 
         }
 
@@ -98,7 +99,7 @@ namespace MVC_03.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, EmployeeViewModel employeeVm)
+        public async Task<IActionResult> EditAsync([FromRoute] int? id, EmployeeViewModel employeeVm)
         {
             if (id != employeeVm.Id)
             {
@@ -111,8 +112,10 @@ namespace MVC_03.PL.Controllers
 
             try
             {
+                employeeVm.ImageName = await DocumentSettings.UploadFileAsync(employeeVm.Image, "Images");
                 var mappedEmp = mapper.Map<EmployeeViewModel, Employee>(employeeVm);
-                iEmployeeRepository.Update(mappedEmp);
+                uniteOfWork.EmployeeRepository.Update(mappedEmp);
+                uniteOfWork.complete();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -135,7 +138,7 @@ namespace MVC_03.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
             return Detailes(id, "Delete");
         }
@@ -145,8 +148,10 @@ namespace MVC_03.PL.Controllers
         {
             try
             {
-              var mappedEmp = mapper.Map<EmployeeViewModel, Employee>(employeeVm);
-                iEmployeeRepository.Delete(mappedEmp);
+                var mappedEmp = mapper.Map<EmployeeViewModel, Employee>(employeeVm);
+                uniteOfWork.EmployeeRepository.Delete(mappedEmp);
+                uniteOfWork.complete();
+                DocumentSettings.DeletFile(employeeVm.ImageName, "Images");
                 return RedirectToAction("Index");
 
             }

@@ -34,9 +34,11 @@ namespace MVC_03.PL
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
             sqlOptions => sqlOptions.MigrationsAssembly("MVC-03.DAL")));
 
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
-            services.AddScoped<IEmployeeRepository,EmplyeeRepository>();
+        //    services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+          //  services.AddScoped<IEmployeeRepository,EmplyeeRepository>();
+          services.AddScoped<IUniteOfWork ,uniteOfWork > ();
             services.AddAutoMapper(M=>M.AddProfile(new mappingProfile()));
 
 

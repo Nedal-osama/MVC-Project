@@ -1,7 +1,8 @@
 ﻿@model EmployeeViewModel
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+ 
+<div>
+    <img src="~/Files/images/@Model.ImageName" class="img-fluid rounded-circle" width="25" />
+</div>
 <div>
     <label class="col-form-label" asp-for="Name"></label>
     <input type="text" asp-for="Name" class="form-control" readonly />
