@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MVC_03.DAL.Data;
+using MVC_03.DAL.Models;
 using MVC_03.PL.Helpers;
 using MVC_03.PLL.Interfaces;
 using MVC_03.PLL.Repositries;
@@ -40,7 +42,28 @@ namespace MVC_03.PL
           //  services.AddScoped<IEmployeeRepository,EmplyeeRepository>();
           services.AddScoped<IUniteOfWork ,uniteOfWork > ();
             services.AddAutoMapper(M=>M.AddProfile(new mappingProfile()));
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredUniqueChars = 2;
+                config.Password.RequireDigit=true;
+                config.Password.RequireLowercase=true;
+                config.Password.RequireUppercase=true;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+         //   services.AddAuthentication()
+           //     .AddCookie("Nedla", config =>
+             //   {
+               //     config.LoginPath = "/Account/SignIn";
+                 //   config.AccessDeniedPath= "/Home/Erorr";
+                  
+               // });
+               services.ConfigureApplicationCookie(confg=>
+
+               {
+                   confg.LogoutPath = "/Account/SignIn";
+                   confg.ExpireTimeSpan= TimeSpan.FromMinutes(10);
+
+			   });
 
         }
 
@@ -61,7 +84,7 @@ namespace MVC_03.PL
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
